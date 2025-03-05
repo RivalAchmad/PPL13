@@ -38,18 +38,19 @@ jobs:
 
       - name: stop docker
         run: docker stop docker-apache
-  sast:
-    name: Psalm
+  sast-sonarcloud:
+    name: SAST - SonarCloud
     permissions: write-all
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Psalm Security Scan
-        uses: docker://ghcr.io/psalm/psalm-security-scan
-        
-      - name: Import Security Analysis results into GitHub Security Code Scanning
-        uses: github/codeql-action/upload-sarif@v2
+      - name: Set up SonarCloud Scanner
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          SONAR_TOKEN: f887c7d4a51dc202d93a117204c104e6b76f478e
         with:
-          sarif_file: results.sarif
+          args: >
+            -Dsonar.organization=rivalachmad
+            -Dsonar.projectKey=RivalAchmad_PPL13
