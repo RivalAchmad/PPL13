@@ -8,7 +8,7 @@ class AutTest(unittest.TestCase):
         options = webdriver.FirefoxOptions()
         options.add_argument('--ignore-ssl-errors=yes')
         options.add_argument('--ignore-certificate-errors')
-        server = "http://localhost:4444"
+        server = 'http://localhost:4444'
 
         self.browser = webdriver.Remote(command_executor=server, options=options)
         self.addCleanup(self.browser.quit)
@@ -20,10 +20,11 @@ class AutTest(unittest.TestCase):
             url = "http://localhost"
 
         self.browser.get(url)
-        expected_result = "Welcome back, Guest!"
+        self.browser.save_screenshot('screenshot.png')
+        expected_result = "Welcome back, Guest!"      
         actual_result = self.browser.find_element(By.TAG_NAME, 'p')
 
         self.assertIn(expected_result, actual_result.text)
 
-if __name__ == "__main__":
-    unittest.main(argv=['first-arg-is-ignored'], verbosity=2, warnings='ignore')
+if __name__ == '__main__':
+    unittest.main(argv=['first-arg-is-ignored'],verbosity=2,warnings='ignore')
