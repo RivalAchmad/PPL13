@@ -32,12 +32,12 @@ jobs:
       - name: ZAP Scan
         uses: hermanka/action-full-scan@master
         with:
-          artifact_name: zap_report
-          target: ${{ env.URL }}
-          network_name: isolated
+            target: ${{ env.URL }}
+            network_name: zap-isolated
 
       - name: stop docker
         run: docker stop docker-apache
+        
   sast-sonarcloud:
     name: SAST - SonarCloud
     permissions: write-all
